@@ -1,0 +1,263 @@
+body {
+    font-family: 'Poppins', "Rubik", sans-serif;
+    font-weight: lighter;
+    font-size: 18px;
+
+    margin: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+#wrapper {
+    background-color: #F3F3F3;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#header {
+    background-color: white;
+    width: 100%;
+    height: 70px;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    align-content: center;
+
+}
+
+#content {
+    width: 100%;
+    height: calc(100% - 110px);
+    margin: 0.5rem;
+
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+}
+
+#footer {
+    width: 100%;
+    height: 30px;
+    font-size: 14px;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+}
+
+#final_screen {
+    width: 100%;
+    height: calc(100% - 110px);
+    margin: 0.5rem;
+
+    display: flex;
+    background: white;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-overlay {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    background: white;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.second_overlay_option {
+    border: 2px solid black;
+    margin: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0.5rem;
+}
+
+#footer_links {
+    display: flex;
+}
+
+.footer_link {
+    color: #b2b2b2;
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+.footer_link:hover {
+    text-decoration: none;
+    color: black;
+}
+
+#right_panel {
+    background-color: white;
+    width: 600px;
+    height: 100%;
+    margin-left: 0.5rem;
+    overflow-y: scroll;
+}
+
+#wearfits_viewer {
+    width: calc(100% - 600px);
+    background-color: white;
+    margin-right: auto;
+}
+
+.preset {
+    width: 90px;
+    height: 90px;
+    display: inline-block;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.preset-image {
+    width: 100%;
+    height: 100%;
+}
+
+.preset-image-pd {
+    width: 85%;
+    height: 85%;
+}
+
+.preset-image-tex {
+    width: 60%;
+    height: 60%;
+}
+
+.preset-label {
+    position: absolute;
+    font-size: 12px;
+    top: 0px;
+}
+
+.selected {
+    border: 2px solid black;
+}
+
+.line {
+    margin: 10px;
+}
+
+.line-header {
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.measurement-line {
+    margin-top: 30px;
+    margin-left: 15px;
+}
+
+.select {
+    width: 45%;
+    overflow-y: auto;
+    vertical-align: top;
+}
+
+.button {
+    width: 100%;
+    min-height: 45px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    background-color: black;
+    border: 1px solid black;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.25);
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    align-self: center;
+    z-index: 1;
+}
+
+.button:hover {
+    background: #3C3C3C;
+    color: white;
+    text-decoration: none;
+}
+
+#measurement_window {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 0; 
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    width: 800px;
+    max-width: 100%;
+    height: 500px;
+    max-height: 100%;
+    z-index: 15;
+    background-color: white;
+    filter: drop-shadow(0px 0px 1px black);
+}
+
+#app_store_icon {
+    width: 30px;
+    height:30px;
+    cursor:pointer;
+}
+
+#summary {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#select_upper_type_creator {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 1200px) {
+    #content {
+        flex-direction: column;
+    }
+    #wearfits_viewer {
+        margin-right: unset;
+        width: 100%;
+        height: 50%;
+    }
+    #right_panel {
+        width: 100%;
+        margin-left: 0px;
+    }
+}
+
+
+@media only screen and (max-width: 900px) {
+    #select_upper_type_creator {
+        flex-wrap: wrap;
+    }
+    .second_overlay_option {
+        max-width: 200px;
+    }
+}

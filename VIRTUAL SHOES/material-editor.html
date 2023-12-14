@@ -1,0 +1,84 @@
+<html>
+
+
+<!-- Mirrored from dev.wearfits.com/material-editor by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 11:49:40 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <title>WEARFITS - Material editor</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon" href="static/favicon.png">
+  <link rel="icon" type="image/png" href="static/favicon192.png" sizes="192x192">
+  <link rel="apple-touch-icon" sizes="180x180" href="static/favicon180.png">
+
+  <link href="https://fonts.googleapis.com/css?family=Poppins" rel="stylesheet">
+
+  <script type="text/javascript" src="static/js/wearfits.bundle.min4cc8.js?v=28"></script>
+
+
+  <script type="text/javascript" src="static/js/wearfits-editor.js"></script>
+
+  <script>
+    wearfits.showQualityButtons = true;
+    wearfits.showRayTracingButton = false;
+    wearfits.showARButton = false;
+
+
+    wf_editor.enableTileMaterialEditor = true;
+    wf_editor.enableSelect = false;
+    wf_editor.advanceLevel = 3;
+
+    var material = null;
+
+    function applyMaterialToAllMeshes(material) {
+      for (let mesh of wearfits.getAllMeshes()) {
+        for (let i = 0; i < mesh.material.length; ++i) {
+          mesh.material[i] = material;
+        }
+      }
+    }
+
+    wearfits.load("material_tester_but", {} ).then( () => {
+      
+    });
+
+    wearfits.addEventListener("object_remove", function (object) {
+      //Save material from previous object
+      material = object.mesh.material[0];
+    });
+
+    wearfits.addEventListener("material_change", (material) => {
+      applyMaterialToAllMeshes(material)
+    })
+
+    wearfits.addEventListener("object_load", (object) => {
+      material = material || object.mesh.material[0];
+      applyMaterialToAllMeshes(material);
+      wearfits.setSelectedMaterialAny();
+    })
+  </script>
+
+  <style>
+    .api-forms {
+      display: none!important;
+    }
+  </style>
+
+</head>
+
+<body style="margin: 0px">
+  <div id="wrapper">
+    <div class="content">
+
+      <div id="preview">
+
+        <div id="wearfits_viewer" style="width:100%;height:100%"></div>
+        
+      </div> <!-- preview -->
+    </div> <!-- content -->
+  </div> <!-- page wrapper -->
+</body>
+
+
+<!-- Mirrored from dev.wearfits.com/material-editor by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 11:49:40 GMT -->
+</html>

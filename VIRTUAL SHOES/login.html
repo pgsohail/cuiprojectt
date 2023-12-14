@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+
+        body {
+            background-color: #1a202c;
+            background-image: url("https://kawaii.kawaii.at/img/Dynamic-pattern-colorful-sneakers-cotton-fabric-Stof-France-256399-1.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        }
+
+        .footer {
+            background-color: #1a202c;
+        }
+
+        .footer a {
+            color: #718096;
+        }
+        #sg{
+            position: absolute;
+            margin-top: 2%;
+            width: 10%;
+            margin-left: 2%;
+            text-align: center;
+            background-color: rgb(1, 170, 237);
+            color: black;
+        }
+        #sg:hover{
+            transition: 2s;
+            background: linear-gradient(rgb(22, 192, 230),rgb(1, 170, 237));
+            color: rgb(251, 249, 249);
+
+        }
+    </style>
+</head>
+<body>
+    <header class="py-6 px-8 bg-gray-800">
+        <div class="flex items-center justify-between">
+            <h1 class="text-2xl text-gray-100">Login Page</h1>
+            <div class="text-gray-100">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 inline-block animate-bounce">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6 inline-block animate-bounce">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+                </svg>
+            </div>
+        </div>
+    </header>
+    <div class="flex h-screen">
+        <div class="m-auto">
+            <div class="max-w-sm mx-auto bg-gray-800 shadow-md rounded-md p-6">
+                <h1 class="text-3xl font-semibold text-gray-100 mb-6">Login</h1>
+                <form action="validation.php" method="POST">
+                    <div class="mb-4">
+                        <label for="email" class="block text-gray-300 mb-2">Email</label>
+                        <input type="email" id="email" name="email" class="w-full p-2 rounded-md bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    <div class="mb-6">
+                        <label for="password" class="block text-gray-300 mb-2">Password</label>
+                        <input type="password" id="password" name="password" class="w-full p-2 rounded-md bg-gray-700 text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                   
+                    <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300 ease-in-out">Log In</button>
+                    <br>
+<a href="register.html" id="sg" class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300 ease-in-out">SignUp</a>              
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <footer class="footer py-6 px-8 text-center text-gray-500">
+        Made with <i class="iconify" data-icon="clarity:heart-line" data-inline="false"></i> Virtual Try-on <i class="iconify" data-icon="clarity:shoe-sneaker-line" data-inline="false">2023© </i>  
+    </footer>
+
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+    <script>
+        const shoeIcons = document.querySelectorAll(".iconify[data-icon^='clarity:shoe-']");
+
+        shoeIcons.forEach((icon) => {
+            icon.classList.add("animate-pulse");
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html>
+
+
+<!-- Mirrored from dev.wearfits.com/demo-footwear by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 11:49:41 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=utf-8" /><!-- /Added by HTTrack -->
+<head>
+  <title>WEARFITS DEMO</title>
+
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+  <meta name="csrf-token" content="sDOcQcCQqhFluyNLOsVgFZmlcxr4sJ5q5qhwz1jM">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <meta property="og:url" content="demo.html">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="WearFits">
+  <meta property="og:description" content="Przymierzaj ubrania wirtualnie">
+  <meta property="og:image:url" content="static/img/demo/website_image.jpg">
+  <meta property="fb:app_id" content="425768174856661">
+
+  <link rel="shortcut icon" href="static/favicon.png">
+  <link rel="icon" type="image/png" href="static/favicon192.png" sizes="192x192">
+  <link rel="apple-touch-icon" sizes="180x180" href="static/favicon180.png">
+
+  <link rel="stylesheet" href="static/css/bootstrap.min.css">
+  <link rel="stylesheet" href="static/css/swiper-bundle.min.css">
+  <link rel="stylesheet" href="static/css/rubik-font.css">
+  <link rel="stylesheet" href="static/css/fitting-room-common4cc8.css?v=28">
+
+  <script src="static/js/jquery-3.5.1.min.js"></script>
+  <script src="static/js/bootstrap.bundle.min.js"></script>
+  <script src="static/js/swiper-bundle.min.js"></script>
+  <script src="static/js/socket.io.js"></script>
+
+    <script type="text/javascript" src="static/js/wearfits.bundle.min4cc8.js?v=28"></script>
+
+
+  <!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'../www.googletagmanager.com/gtm5445.html?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-W5QHT57');</script>
+<!-- End Google Tag Manager -->
+
+  <script>
+    var viewType = "footwear";
+  </script>
+
+
+  <script src="static/js/demo4cc8.js?v=28"></script>
+
+</head>
+
+<body>
+
+  
+
+<script>
+  function changeLocale (locale) {
+    //wearfits.setCookie('wearfits-locale', locale);
+    setLanguage(locale)
+  }
+</script>
+
+<div class="modal-content" role="document">
+
+  <div class="modal-header">
+    <!-- Placeholder -->
+  </div>
+
+  <div class="modal-header wearfits-header">
+    <!-- reale floating header -->
+    <div class="modal-title" id="logo">
+      <a href="demo.html">
+        <img src="static/img/wearfits_logo.png" alt="WearFits" style="height: 100%">
+      </a>
+    </div>
+
+    <div class="btn-group lang-switcher">
+      <button type="button" class="lang-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <span class="wftrans_en">en</span><span class="arrow-down"></span>
+      </button>
+      <div class="dropdown-menu dropdown-menu-right">
+        <a onclick="changeLocale('en')" class="dropdown-item" href="#">en</a>
+        <a onclick="changeLocale('pl')" class="dropdown-item" href="#">pl </a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="modal-body">
+
+    <div id="carouselWF" class="carousel slide" data-keyboard="false" data-wrap="false" data-ride="false" data-touch="false" data-interval="false">
+      <div class="carousel-inner">
+
+        <!-- SLIDE 1 -->
+        <div class="carousel-item ">
+
+          <script>
+            function onSliderChange() {
+              for (let prop of ["height", "chest", "waist", "buttock"]) {
+                let input_element = document.getElementById("wearfits_avatar_" + prop);
+
+                if (input_element) {
+                  wearfits.userParams[prop] = parseInt(input_element.value);
+                }
+              }
+
+              //Update silhouette image
+              let sil = wearfits.getBodyType(wearfits.userParams.chest, wearfits.userParams.waist, wearfits.userParams.buttock);
+              $("#silImg").attr("src", "/static/img/demo/sil/" + sil + ".png");
+              $("#titleSil").text(trans[sil]);
+            }
+
+            async function getMeasurementsBoldMetrics() {
+              let form_data = new FormData()
+              let gender = document.querySelector('input[name="wearfits_avatar_gender"]:checked').value
+              form_data.append("gender", gender);
+              form_data.append("height", wearfits_avatar_height.value);
+              form_data.append("weight", wearfits_avatar_bm_weight.value);
+              form_data.append("age", wearfits_avatar_bm_age.value);
+              
+              if (gender === "m") {
+                form_data.append("waist", wearfits_avatar_bm_waist.value);
+              } else {
+                form_data.append("bra_size_number", wearfits_avatar_bm_bra_size_number.value);
+                form_data.append("bra_size_letter", wearfits_avatar_bm_bra_size_letter.value);
+              }
+
+              let data = await wearfits.request("/api/virtualtailor", "POST", form_data);
+
+              data = JSON.parse(data)
+
+              console.log(data);
+
+              //let height = Math.round( parseFloat(data.dimensions["height"]) * 2.54)
+              //wearfits_avatar_height.value = height;
+              //wearfits_avatar_fake_height.value = height;
+
+              let chest = Math.round( parseFloat(data.dimensions["chest_circum"]) * 2.54)
+              wearfits_avatar_chest.value = chest;
+              wearfits_avatar_fake_chest.value = chest;
+
+              let waist = Math.round( parseFloat(data.dimensions["waist_circum_preferred"]) * 2.54)
+              wearfits_avatar_waist.value = waist;
+              wearfits_avatar_fake_waist.value = waist;
+
+              let buttock = Math.round( parseFloat(data.dimensions["hip_circum"]) * 2.54)
+              wearfits_avatar_buttock.value = buttock;
+              wearfits_avatar_fake_buttock.value = buttock;
+
+              bold_metrics_form.style.display = "none";
+              standard_avatar_form.style.display = "block";
+
+              onSliderChange();
+ 
+            }
+
+            function openBoldMetricForm() {
+              bold_metrics_form.style.display = "block";
+              standard_avatar_form.style.display = "none";
+
+              onGenderChange();
+            }
+
+            function onGenderChange() {
+              let gender = document.querySelector('input[name="wearfits_avatar_gender"]:checked').value;
+              
+              if (gender !== wearfits.userParams.gender) {
+                wearfits.userParams.gender = gender;
+                let prop = (gender === "m") ? wearfits.sizeTableMan[wearfits.mediumSizeMan] : wearfits.sizeTableWoman[wearfits.mediumSizeWoman];
+
+                for (let key in prop){
+                  let val = prop[key];
+                  wearfits.userParams[key] = val;
+                }
+
+                wearfits.setInputsFromAvatarParams(wearfits.userParams);
+                wearfits_avatar_bm_weight.value = (gender === "m") ? 75 : 55;
+                wearfits_avatar_bm_fake_weight.value = (gender === "m") ? 75 : 55;
+              }
+
+              for (let element of document.getElementsByClassName("bold-metrics-bra-size")) {
+                element.style.display = (gender === "w") ? "" : "none";
+              }
+              for (let element of document.getElementsByClassName("bold-metrics-waist")) {
+                element.style.display = (gender === "m") ? "" : "none";
+              }
+            }
+          </script>
+          
+          <!-- LEFT COLUMN -->
+          <div class="left-col-slide-1 content padded-tile hide-on-mobile">
+            <div class="col align-items-center center-block fill">
+              <div class="text-center column-title text-uppercase font-weight-bold"><span class="wftrans_body_type">BODY TYPE</span></div>
+              <div class="text-center column-sub-title text-capitalize" id="titleSil"><span class="wftrans_hourglass">Hourglass</span></div>
+              <div class="text-center pt-5 body-image"><img id="silImg" height="100%" src="static/img/demo/sil/hourglass.png" alt="Silhouette type"></div>
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN -->
+          <div class="right-col-slide-1 content padded-tile">
+            <div class="col align-items-center center-block avatar-sliders">
+
+              <div class="text-center column-title text-uppercase font-weight-bold"><span class="wftrans_your_profile">YOUR PROFILE</span></div>
+              
+              <div class="text-center column-sub-title"><span class="wftrans_please_input_your_silhouette_parameters">Please input your silhouette parameters</span></div>
+
+              <div class="col mt-4">
+                  
+                <div class="row py-1" id="wearfits_avatar_gender_row" style="display: none;">
+                  <div class="col-4 pr-0 b text-capitalize"><span class="wftrans_gender">Gender</span></div>
+                  
+                  <div class="col-4 px-0">
+                    <input type="radio" id="wearfits_avatar_gender_woman" name="wearfits_avatar_gender" value="w" onchange="onGenderChange()" checked>
+                    <label for="wearfits_avatar_gender_woman" class="b text-capitalize wftrans_woman">Woman</label>
+                  </div>
+                  
+                  <div class="col-4 px-0">
+                    <input type="radio" id="wearfits_avatar_gender_man" name="wearfits_avatar_gender" onchange="onGenderChange()" value="m">
+                    <label for="wearfits_avatar_gender_man" class="b text-capitalize wftrans_man">Man</label>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-6 b text-capitalize"><span class="wftrans_height">Height</span></div>
+                  <div class="col-6 text-right b"><input type="number" class="avatar-display-input" id="wearfits_avatar_fake_height" value="165" oninput="wearfits_avatar_height.value = this.value;onSliderChange()">cm</div>
+                </div>
+                <div class="row align-items-center py-1">
+                  <div class="col-1 pr-0 text-right sm">150</div>
+                  <div class="col px-1 slider-container">
+                    <input type="range" min="150" max="200" value="165" class="slider" id="wearfits_avatar_height" oninput="wearfits_avatar_fake_height.value=this.value" onchange="onSliderChange()">
+                  </div>
+                  <div class="col-1 pl-0 pr-4 text-left sm">200</div>
+                </div>
+
+              </div>
+              
+              <div class="col" id="standard_avatar_form">
+                <div class="row">
+                  <div class="col-6 b text-capitalize"><span class="wftrans_chest">Chest</span></div>
+                  <div class="col-6 text-right b"><input type="number" class="avatar-display-input" id="wearfits_avatar_fake_chest" value="88" oninput="wearfits_avatar_chest.value = this.value;onSliderChange()">cm</div>
+                </div>
+                <div class="row align-items-center py-1">
+                  <div class="col-1 pr-0 text-right sm">70</div>
+                  <div class="col px-1 slider-container">
+                    <input type="range" min="70" max="130" value="88" class="slider" id="wearfits_avatar_chest" oninput="wearfits_avatar_fake_chest.value=this.value" onchange="onSliderChange()">
+                  </div>
+                  <div class="col-1 pl-0 pr-4 text-left sm">130</div>
+                </div>
+                <div class="row">
+                  <div class="col-6 b text-capitalize"><span class="wftrans_waist">Waist</span></div>
+                  <div class="col-6 text-right b"><input type="number" class="avatar-display-input" id="wearfits_avatar_fake_waist" value="70" oninput="wearfits_avatar_waist.value = this.value;onSliderChange()">cm</div>
+                </div>
+                <div class="row align-items-center py-1">
+                  <div class="col-1 pr-0 text-right sm">55</div>
+                  <div class="col px-1 slider-container">
+                    <input type="range" min="55" max="130" value="70" class="slider" id="wearfits_avatar_waist" oninput="wearfits_avatar_fake_waist.value=this.value" onchange="onSliderChange()">
+                  </div>
+                  <div class="col-1 pl-0 pr-4 text-left sm">130</div>
+                </div>
+                <div class="row">
+                  <div class="col-6 b text-capitalize"><span class="wftrans_hips">Hips</span></div>
+                  <div class="col-6 text-right b"><input type="number" class="avatar-display-input" id="wearfits_avatar_fake_buttock" value="94" oninput="wearfits_avatar_buttock.value = this.value;onSliderChange()">cm</div>
+                </div>
+                <div class="row align-items-center py-1">
+                  <div class="col-1 pr-0 text-right sm">80</div>
+                  <div class="col px-1 slider-container">
+                    <input type="range" min="80" max="130" value="94" class="slider" id="wearfits_avatar_buttock" oninput="wearfits_avatar_fake_buttock.value=this.value" onchange="onSliderChange()">
+                  </div>
+                  <div class="col-1 pl-0 pr-4 text-left sm">130</div>
+                </div>
+              
+                <!--
+                <div class="row justify-content-around align-items-center flex-column mt-4" style="cursor: pointer;">
+                  <div class="text-center small-text" onclick='openBoldMetricForm()'><span class="wftrans_i_dont_know_my_mesurements">I don't know my measurements</span></div>
+                </div>
+                -->
+  
+                <div class="row page-item pt-3 justify-content-around align-items-center flex-column">
+                    <div class="standard-button text-center" data-target="#carouselWF" data-slide-to="1" href="#"><div class="standard-button-text"><span class="wftrans_go_to_garment_selection">Go to garment selection</span></div></div>
+                  
+                  <nav class="pt-1" aria-label="Page navigation">
+                    <a class="nav-progress-link text-center pag-1 pag-active" data-target="#carouselWF" data-slide-to="0" href="#"><span class="wftrans_profile">Profile</span></a> -
+                    <a class="nav-progress-link text-center pag-2" data-target="#carouselWF" data-slide-to="1" href="#"><span class="wftrans_item">Item</span></a> -
+                    <a class="nav-progress-link text-center pag-3" data-target="#carouselWF" data-slide-to="2" href="#"><span class="wftrans_visualization">Visualization</span></a>
+                  </nav>
+                </div>
+              </div>
+
+              <div class="col" id="bold_metrics_form" style="display: none;">
+                <div class="row py-1">
+                  <div class="col-6 b text-capitalize"><span class="wftrans_weight">Weight</span></div>
+                  <div class="col-6 text-right b"><input type="number" class="avatar-display-input" id="wearfits_avatar_bm_fake_weight" value="55" oninput="wearfits_avatar_bm_weight.value = this.value">kg</div>
+                </div>
+                <div class="row align-items-center py-1">
+                  <div class="col-1 pr-0 text-right sm">44</div>
+                  <div class="col px-1 slider-container">
+                    <input type="range" min="44" max="190" value="55" class="slider" id="wearfits_avatar_bm_weight" oninput="wearfits_avatar_bm_fake_weight.value=this.value">
+                  </div>
+                  <div class="col-1 pl-0 pr-4 text-left sm">190</div>
+                </div>
+                
+                <div class="row py-1">
+                  <div class="col-6 b text-capitalize"><span class="wftrans_age">Age</span></div>
+                  <div class="col-6 text-right b"><input type="number" class="avatar-display-input mr-3" id="wearfits_avatar_bm_fake_age" value="25" oninput="wearfits_avatar_bm_age.value = this.value"></div>
+                </div>
+                <div class="row align-items-center py-1">
+                  <div class="col-1 pr-0 text-right sm">13</div>
+                  <div class="col px-1 slider-container">
+                    <input type="range" min="13" max="89" value="25" class="slider" id="wearfits_avatar_bm_age" oninput="wearfits_avatar_bm_fake_age.value=this.value">
+                  </div>
+                  <div class="col-1 pl-0 pr-4 text-left sm">89</div>
+                </div>
+
+                <div class="bold-metrics-waist row py-1">
+                  <div class="col-6 b text-capitalize"><span class="wftrans_waist">Waist</span></div>
+                  <div class="col-6 text-right b"><input type="number" class="avatar-display-input" id="wearfits_avatar_bm_fake_waist" value="90" oninput="wearfits_avatar_bm_waist.value = this.value">cm</div>
+                </div>
+                <div class="bold-metrics-waist row align-items-center py-1">
+                  <div class="col-1 pr-0 text-right sm">64</div>
+                  <div class="col px-1 slider-container">
+                    <input type="range" min="64" max="110" value="90" class="slider" id="wearfits_avatar_bm_waist" oninput="wearfits_avatar_bm_fake_waist.value=this.value">
+                  </div>
+                  <div class="col-1 pl-0 pr-4 text-left sm">110</div>
+                </div>
+
+                <div class="bold-metrics-bra-size row py-1">
+                  <div class="col-6 b text-capitalize"><span class="wftrans_bra_size">Bra size</span></div>
+                </div>
+                <div class="bold-metrics-bra-size row align-items-center py-1">
+                  <div class="col b px-5">
+                    <select class="select" id="wearfits_avatar_bm_bra_size_number">
+                      <option>65</option>
+                      <option>70</option>
+                      <option selected>75</option>
+                      <option>80</option>
+                      <option>85</option>
+                      <option>90</option>
+                      <option>95</option>
+                      <option>100</option>
+                      <option>110</option>
+                      <option>115</option>
+                      <option>120</option>
+                    </select>
+                    <select class="select" id="wearfits_avatar_bm_bra_size_letter">
+                      <option>A</option>
+                      <option>B</option>
+                      <option>C</option>
+                      <option selected>D</option>
+                      <option>E</option>
+                      <option>F</option>
+                      <option>G</option>
+                      <option>H</option>
+                      <option>I</option>
+                      <option>J</option>
+                      <option>K</option>
+                    </select>
+                  </div>
+                  
+                </div>
+
+                <div class="row page-item pt-4 justify-content-around align-items-center flex-column">
+                  <div class="standard-button text-center" onclick="getMeasurementsBoldMetrics()"><div class="standard-button-text"><span class="wftrans_get_your_mesurements">Get your measurements</span></div></div>
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        
+        <!-- SLIDE 2 -->
+        <div class="carousel-item active">
+          <div class="content col fill justify-content-around align-items-center padded-tile">
+
+            <div class="text-center column-title text-uppercase font-weight-bold"><span class="wftrans_select_product">SELECT GARMENT</span></div>
+
+            <div class="text-center column-sub-title"><span class="wftrans_choose_a_clothing_item_you_would_like_to_visualize">Choose a clothing item you would like to visualize</span></div>
+
+            <!-- Slider main container -->
+            <div class="swiper-container">
+              <!-- Additional required wrapper -->
+              <div class="swiper-wrapper">
+                <!-- Slides -->
+              </div>
+              <!-- navigation buttons -->
+              <div class="swiper-button-prev"></div>
+              <div class="swiper-button-next"></div>
+            </div>
+
+            <div class="row page-item pt-2 justify-content-around align-items-center flex-column">
+              <div class="standard-button text-center" data-target="#carouselWF" data-slide-to="2" href="#"><div class="standard-button-text"><span class="wftrans_go_to_visualization">Go to visualization</span></div></div>
+            </div>
+
+          </div>
+        </div>
+        
+
+        <!-- SLIDE 3 -->
+        <div class="carousel-item ">
+
+            <!-- LEFT COLUMN -->
+            <div class="left-col content" id="content3d">
+
+              <div id="wearfits_viewer" style="width:100%;height:100%"></div> <!-- canvas inside -->
+
+
+            </div>
+
+            <!-- RIGHT COLUMN -->
+            <div class="right-col content padded-tile" style="z-index: 10;">
+              <div class="col justify-content-around align-items-center visualization-controls">
+
+                <div class="text-center column-title text-uppercase font-weight-bold hide-on-mobile"><span class="wftrans_your_visualization">YOUR VISUALIZATION</span></div>
+
+                <div class="text-center column-sub-title hide-on-mobile"><span class="wftrans_check_the_apearance_and_comfort_of_chosen_item">Check the apearance and comfort of chosen item</span></div>
+
+
+                <div class="text-center pt-3 align-items-center visualization-buttons">
+
+
+                    <div class="standard-button mt-2 visualization-button" id="wearfits_tryon_button"><span class="wftrans_try_on">Try on</span></div>
+
+                  <div class="standard-button mt-2 visualization-button icon-button" id="wearfits_ar_mode_button"><div class="standard-button-text"><img src="static/img/icons/ar.png" /><span class="hide-on-mobile"><span class="wftrans_see_in_ar">See in AR</span></div></div>
+
+                  <div class="standard-button mt-2 visualization-button" id="wearfits_reset_camera_button" onclick="wearfits.resetView()"><div class="standard-button-text"><span class="wftrans_reset_view">Reset view</span></div></div>
+
+                  <div class="standard-button mt-2 visualization-button hide-on-mobile" id="wearfits_render_button"><div class="standard-button-text"><span class="wftrans_high_quality">High quality</span></div></div>
+                
+                  <div class="standard-button mt-2 visualization-button" data-target="#carouselWF" data-slide-to="1"><span class="wftrans_change_product">Change product</span></div>
+                </div>
+
+                
+                <div class="row pt-1 justify-content-around align-items-center">
+                </div>
+
+              </div>
+              
+            </div>
+
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="modal-footer py-1">
+    <div id="footer_links">
+      <a class="footer_link mr-3 hide-on-mobile" href="https://wearfits.com/"><span>®2021 WEARFITS.COM</span></a>
+      <a class="footer_link" href="https://wearfits.com/privacy_policy.html"><span class="wftrans_privacy_policy">Privacy Policy</span></a>
+    </div>
+    <div id="social_icons">
+      <div id="facebook_share" class="social-icon"><a href="http://facebook.com/wearfitsar" target="_blank" rel="noopener noreferrer"><img src="static/img/icons/facebook.svg" /></a></div>
+      <div id="twitter_share" class="social-icon"><a href="https://www.linkedin.com/company/wearfits/" target="_blank" rel="noopener noreferrer"><img src="static/img/icons/linkedin.svg" /></a></div>
+      <div id="pinterest_share" class="social-icon"><a href="https://www.instagram.com/wearfitsar/" target="_blank" rel="noopener noreferrer"><img src="static/img/icons/instagram.svg" /></a></div>
+    </div>
+
+
+  </div>
+</div>
+
+<script>
+  var transList = [
+    {
+      "key": "en",
+      "en" : "en",
+      "pl" : "pl",
+    },
+    {
+      "key": "about",
+      "en" : "About",
+      "pl" : "O nas",
+    },
+    {
+      "key": "privacy_policy",
+      "en" : "Privacy Policy",
+      "pl" : "Polityka Prywatności",
+    },
+    {
+      "key": "terms_and_conditions",
+      "en" : "Terms and Conditions",
+      "pl" : "Regulamin",
+    },
+    {
+      "key": "contact",
+      "en" : "Contact",
+      "pl" : "Kontakt",
+    },
+    {
+      "key": "height",
+      "en" : "Height",
+      "pl" : "Wzrost",
+    },
+    {
+      "key": "chest",
+      "en" : "Chest",
+      "pl" : "Biust",
+    },
+    {
+      "key": "waist",
+      "en" : "Waist",
+      "pl" : "Talia",
+    },
+    {
+      "key": "hips",
+      "en" : "Hips",
+      "pl" : "Biodra",
+    },
+    {
+      "key": "gender",
+      "en" : "Gender",
+      "pl" : "Płeć",
+    },
+    {
+      "key": "man",
+      "en" : "Man",
+      "pl" : "Mężczyzna",
+    },
+    {
+      "key": "woman",
+      "en" : "Woman",
+      "pl" : "Kobieta",
+    },
+    {
+      "key": "age",
+      "en" : "Age",
+      "pl" : "Wiek",
+    },
+    {
+      "key": "weight",
+      "en" : "Weight",
+      "pl" : "Waga",
+    },
+    {
+      "key": "bra_size",
+      "en" : "Bra size",
+      "pl" : "Rozmiar biustonosza",
+    },
+    {
+      "key": "hourglass",
+      "en" : "Hourglass",
+      "pl" : "Klepsydra",
+    },
+    {
+      "key": "pear",
+      "en" : "Pear",
+      "pl" : "Gruszka",
+    },
+    {
+      "key": "rectangle",
+      "en" : "Rectangle",
+      "pl" : "Kolumna",
+    },
+    {
+      "key": "triangle",
+      "en" : "Triangle",
+      "pl" : "Rożek",
+    },
+    {
+      "key": "apple",
+      "en" : "Apple",
+      "pl" : "Jabłko",
+    },
+    {
+      "key": "body_type",
+      "en" : "Body type",
+      "pl" : "Typ twojej sylwetki",
+    },
+    {
+      "key": "select_size",
+      "en" : "Select size",
+      "pl" : "Wybierz rozmiar",
+    },
+    {
+      "key": "your_profile",
+      "en" : "Your profile",
+      "pl" : "Twój profil",
+    },
+    {
+      "key": "please_input_your_silhouette_parameters",
+      "en" : "Please input your silhouette parameters",
+      "pl" : "Ustaw wymiary swojej sylwetki, aby zobaczyć jaki rozmiar jest dla Ciebie najlepszy",
+    },
+    {
+      "key": "i_dont_know_my_mesurements",
+      "en" : "I don't know my measurements",
+      "pl" : "Nie znam swoich wymiarów",
+    },
+    {
+      "key": "go_to_garment_selection",
+      "en" : "Go to garment selection",
+      "pl" : "Przejdź do wyboru odzieży",
+    },
+    {
+      "key": "profile",
+      "en" : "Profile",
+      "pl" : "Profil",
+    },
+    {
+      "key": "item",
+      "en" : "Item",
+      "pl" : "Produkt",
+    },
+    {
+      "key": "visualization",
+      "en" : "Visualization",
+      "pl" : "Wizualizacja",
+    },
+    {
+      "key": "select_product",
+      "en" : "Select product",
+      "pl" : "Wybierz produkt",
+    },
+    {
+      "key": "get_your_mesurements",
+      "en" : "Get your mesurements",
+      "pl" : "Pobierz swoje wymiary",
+    },
+    {
+      "key": "go_to_visualization",
+      "en" : "Go to visualization",
+      "pl" : "Przejdź do wizualizacji",
+    },
+    {
+      "key": "your_visualization",
+      "en" : "Your visualization",
+      "pl" : "Twoja wizualizacja",
+    },
+    {
+      "key": "check_the_apearance_and_comfort_of_chosen_item",
+      "en" : "Check the apearance and comfort of chosen item",
+      "pl" : "Oto jak może wyglądać produkt na twojej sylwetce",
+    },
+    {
+      "key": "check_comfort",
+      "en" : "Check comfort",
+      "pl" : "Czy produkt pasuje?",
+    },
+    {
+      "key": "see_in_ar",
+      "en" : "See in AR",
+      "pl" : "Zobacz w AR",
+    },
+    {
+      "key": "reset_view",
+      "en" : "Reset view",
+      "pl" : "Resetuj widok",
+    },
+    {
+      "key": "high_quality",
+      "en" : "High quality",
+      "pl" : "Wysoka jakość",
+    },
+    {
+      "key": "play",
+      "en" : "Play animation",
+      "pl" : "Odtwórz animację",
+    },
+    {
+      "key": "try_on",
+      "en" : "Try on",
+      "pl" : "Przymierz",
+    },
+    {
+      "key": "select_demo",
+      "en" : "Select demo",
+      "pl" : "Wybierz demo",
+    },
+    {
+      "key": "choose_which_demo_you_want_to_play_with",
+      "en" : "Choose which demo you want to play with",
+      "pl" : "Wybierz wersję dema, które cię interesuje",
+    },
+    {
+      "key": "apparel_demo",
+      "en" : "Apparel demo",
+      "pl" : "Wirtualna przymierzalnia ubrań",
+    },
+    {
+      "key": "footwear_demo",
+      "en" : "Footwear demo",
+      "pl" : "Obuwie demo",
+    },
+    {
+      "key": "change_product",
+      "en" : "Change product",
+      "pl" : "Zmień produkt",
+    },
+  ]
+
+  if (viewType == "footwear") {
+    transList.push({
+      "key": "choose_a_clothing_item_you_would_like_to_visualize",
+      "en" : "Choose a product you would like to visualize",
+      "pl" : "Wybierz produkt, który chcesz zwizualizować",
+    })
+  } else {
+    transList.push({
+      "key": "choose_a_clothing_item_you_would_like_to_visualize",
+      "en" : "Choose a clothing item you would like to visualize",
+      "pl" : "Wybierz ubranie, które chcesz zwizualizować",
+    })
+  }
+
+  var trans = {
+    "hourglass": "Hourglass",
+    "pear": "Pear",
+    "rectangle": "Rectangle",
+    "triangle": "Triangle",
+    "apple": "Apple",
+  }
+
+  function setLanguage(lang) {
+    //wearfits.setLanguage(lang);
+    for (let item of transList) {
+      let className = '.wftrans_' + item.key
+      $(className).html(item[lang] || item.en)
+
+      if (item.key in trans) {
+        trans[item.key] = item[lang] || item.en
+      }
+    }
+  }
+
+  var url_lang = new URL(window.location.html).searchParams.get("lang");
+
+  var language = url_lang || wearfits.getCookie('wearfits-locale') || navigator.language || "en";
+
+  setLanguage(language)
+  
+</script>
+
+</body>
+
+
+<!-- Mirrored from dev.wearfits.com/demo-footwear by HTTrack Website Copier/3.x [XR&CO'2014], Sat, 09 Dec 2023 11:49:42 GMT -->
+</html>

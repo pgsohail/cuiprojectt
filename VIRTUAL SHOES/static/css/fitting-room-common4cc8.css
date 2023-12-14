@@ -1,0 +1,646 @@
+body, html {
+    font-family: 'Poppins', "Rubik", sans-serif;
+    font-weight: lighter;
+    font-size: 18px;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    background-color: #F3F3F3;
+
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.column-title {
+    font-size: 2rem;
+}
+
+.column-sub-title {
+    color: gray;
+    font-size: 14px;
+    margin-top: -12px;
+}
+
+.small-text {
+    color: gray;
+    text-decoration: underline;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.wearfits_button_label {
+    display: none;
+}
+
+.standard-button {
+    width: 300px;
+    height: 60px;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 600;
+    background-color: black;
+    border: 2px solid black;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px 0px rgba(0,0,0,0.25);
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.standard-button:hover {
+    background: #3C3C3C;
+    color: white;
+    text-decoration: none;
+}
+
+.wf_active_button {
+    background: #3C3C3C;
+}
+
+.standard-button-text:first-letter {
+    text-transform: capitalize;
+}
+
+.standard-button-text img {
+    height: 50px;
+}
+
+.wf_active_button {
+    background: black;
+}
+
+.standard-link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: black;
+}
+
+.standard-link:hover {
+    color: #3d3d3d;
+}
+
+.visualization-buttons {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.visualization-button {
+    margin-top: 7px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.nav-progress-link {
+    border-width: 0px;
+    margin: 0px 5px;
+    color: #D7D7D7;
+}
+
+.nav-progress-link:hover {
+    color: black;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.pag-active {
+    color: black;
+    font-weight: bold;
+}
+
+.nr a {
+    width: 33px;
+}
+
+.sm {
+    font-size: 11px;
+}
+
+.b {
+    font-weight: bold;
+}
+
+.fill {
+    min-height: 100%;
+    height: 100%;
+}
+
+.label {
+    color: gray;
+}
+
+.modal-content {
+    min-height: 720px;
+    height: 100%;
+    border: 0px;
+    border-radius: 0px;
+    background-color: #F3F3F3;
+    margin: auto;
+    max-width: 1440px;
+}
+
+.modal-header {
+    background-color: white;
+    display: flex;
+    height: 60px;
+    padding: 0px;
+    align-items: center;
+    padding-left: 2%;
+    padding-right: 2%;
+    justify-content: space-between;
+}
+
+.wearfits-header {
+    position: fixed;
+    top: 0px;
+    z-index: 10;
+    width: 100%;
+    max-width: 1440px;
+}
+
+#logo {
+    height: 70%;
+}
+
+.arrow-down {
+    border: solid black;
+    border-width: 0 3px 3px 0;
+    display: inline-block;
+    padding: 4px;
+    transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+
+    margin-left: .75em;
+    margin-right: .5em;
+    vertical-align: .15em;
+}
+
+.lang-switcher {
+    height: 70%;
+    padding-right: 0.5rem;
+}
+
+.lang-button {
+    padding-left: 1rem;
+    height: 100%;
+    border-radius: 0px;
+    color: black;
+    background-color: #EFEFEF;
+    border: none;
+}
+
+.lang-button:hover {
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+.lang-button:hover .arrow-down {
+    -webkit-filter: invert(100%);
+    filter: invert(100%);
+}
+
+.modal-body {
+    height: calc(100% - 200px);
+    background-color: white;
+    padding: 0;
+    margin: 1%;
+    margin-bottom: 0px;
+}
+
+#carouselWF {
+    height: 100%;
+}
+
+.modal-footer  {
+    border: none;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    vertical-align: bottom;
+}
+
+#footer_links {
+    display: flex;
+    color: lightgray;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.footer_link {
+    color: lightgray;
+    display: inline-block;
+    vertical-align: bottom;
+}
+
+.footer_link:hover {
+    text-decoration: none;
+    color: black;
+}
+
+#social_icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding-right: 20px;
+}   
+
+.social-icon {
+    width: 35px;
+    height: 35px;
+    margin-left: 20px;
+    cursor: pointer;
+    -webkit-filter: invert(40%);
+	filter: invert(40%);
+}
+
+.social-icon:hover {
+    -webkit-filter: none;
+	filter: none;
+}
+
+.left-col-slide-1 {
+    width: 49%;
+    height: 100%;
+    float: left;
+}
+
+.right-col-slide-1 {
+    width: 49%;
+    height: 100%;
+    float: right;
+}
+.left-col {
+    width: calc(98% - 450px);
+    height: 100%;
+    float: left;
+}
+
+.right-col {
+    width: 450px;
+    height: 100%;
+    float: right;
+}
+
+.body-image {
+    height: 400px;
+}
+
+.container-fluid {
+    height: 100%;
+}
+
+.carousel-inner {
+    height: 100%;
+}
+
+.carousel-item {
+    height: 100%;
+    background-color: #F3F3F3;
+}
+
+.content {
+    background-color: white;
+}
+
+.padded-tile {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+}
+
+.item {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+#content3d {
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+#wearfits-close {
+    position: absolute;
+    z-index: 999999;
+    font-size: 35px;
+    top: 0;
+    right: 0;
+    padding-top: 10px;
+    padding-right: 15px;
+}
+
+.select {
+    padding: 3px;
+    padding-left: 10px;
+    font-weight: bold;
+}
+
+.slider-container {
+    display: flex;
+    align-items: center;
+    height: 30px;
+}
+
+.slider {
+    -webkit-appearance: none;
+    /* Override default CSS styles */
+    appearance: none;
+    width: 100%;
+    /* Full-width */
+    height: 5px;
+    /* Specified height */
+    background: #d3d3d3;
+    /* Grey background */
+    outline: none;
+    /* Remove outline */
+    opacity: 0.7;
+    /* Set transparency (for mouse-over effects on hover) */
+    -webkit-transition: .2s;
+    /* 0.2 seconds transition on hover */
+    transition: opacity .2s;
+    border-radius: 5px;
+}
+
+
+/* Mouse-over effects */
+
+.slider:hover {
+    opacity: 1;
+    /* Fully shown on mouse-over */
+}
+
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    /* Override default look */
+    appearance: none;
+    width: 25px;
+    /* Set a specific slider handle width */
+    height: 25px;
+    /* Slider handle height */
+    background: #999;
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+    border-radius: 15px;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    /* Set a specific slider handle width */
+    height: 25px;
+    /* Slider handle height */
+    background: #999;
+    /* Green background */
+    cursor: pointer;
+    /* Cursor on hover */
+    border-radius: 15px;
+}
+
+.swiper-container {
+    width: 100%;
+    height: calc(100% - 135px);
+    padding: 1rem;
+}
+
+.swiper-slide {
+    /* width: 300px; */
+    text-align: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    -webkit-justify-content: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -webkit-align-items: center;
+    align-items: center;
+    opacity: 50%;
+}
+
+.swiper-slide-active {
+    opacity: 100%;
+}
+
+.swiper-button-prev {
+    color: #3C3C3C;
+    left: 30%;
+}
+.swiper-button-next {
+    color: #3C3C3C;
+    right: 30%;
+}
+
+.swiper-button-prev:hover {
+    color: black;
+}
+.swiper-button-next:hover {
+    color: black;
+}
+
+#zoom_in_button {
+    position: absolute;
+    text-align: center;
+    top: 10px;
+    right: 10px;
+    z-index: 5;
+    color: black;
+    user-select: none;
+    background-image: url("../img/icons/zoom-in.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 45px;
+    height: 45px;
+    cursor: pointer;
+}
+
+#zoom_in_button:hover {
+    filter: invert(30%);
+}
+
+#simulation_progress {
+    display: none;
+    position: absolute;
+    text-align: center;
+    bottom: 10px;
+    right: 10px;
+    z-index: 5;
+    user-select: none;
+    background-image: url("../img/icons/loader.svg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    width: 45px;
+    height: 45px;
+}
+
+.wearfits-size-buttons div {
+    padding: .25rem .35rem .25rem!important;
+    margin-left: 5px!important;
+    margin-right: 5px!important;
+    margin-bottom: 7px!important;
+    font-size: 12px!important;
+}
+
+.wearfits-size-buttons div:hover {
+    color: white!important;
+    background-color:black!important;
+}
+
+.wearfits-selected-size {
+    color: white!important;
+    background-color:black!important;
+}
+
+.wearfits-disabled-size {
+    color: black!important;
+    background-color:gray!important;
+    cursor: not-allowed;
+}
+
+#viewer-buttons-container {
+    position: absolute;
+    left: 0;
+    top: 5px;
+    z-index: 4;
+    width: 100%;
+}
+
+.viewer-button {
+    display: inline-block;
+    background-color: #e9ecef;
+    text-decoration: none;
+    padding: 2px 5px;
+    border-radius: 5px;
+    margin: 0 5px;
+    margin-bottom: 5px;
+    font-size: 12px;
+    user-select: none;
+    cursor: pointer;
+}
+
+.active_button {
+    background-color: black;
+    color: white;
+}
+
+.viewer-button:hover {
+    background-color: black;
+    color: white;
+}
+
+.avatar-display-input {
+    font-weight: inherit;
+    width: 50px;
+    background: transparent;
+    border: none;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    -moz-appearance: textfield;
+}
+
+#apple_ar_mode_button {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .column-title {
+        font-size: 2rem;
+    }
+    .swiper-button-prev {
+        left: 0px;
+    }
+    .swiper-button-next {
+        right: 0px;
+    }
+    .modal-content {
+        min-height: 720px;
+    }
+    .modal-body {
+        margin: 0px;
+        margin-top: 5px;
+    }
+    .modal-footer {
+        padding: 0px;
+        font-size: 13px;
+    }
+    #footer_links {
+        max-width: calc(100% - 140px);
+    }
+    #social_icons {
+        padding-right: 0px;
+    }
+    .social-icon {
+        margin-left: 10px;
+        width: 30px;
+        height: 30px;
+    }
+    .right-col-slide-1 {
+        width: 100%;
+        float: none;
+    }
+    .left-col {
+        width: 100%;
+        float: none;
+    }
+    .right-col {
+        width: 100%;
+        float: none;
+    }
+    #zoom_in_button {
+        display: none;
+    }
+    .avatar-sliders {
+        height: calc(100% - 125px);
+    }
+    .swiper-container {
+        height: calc(100% - 170px);
+    }
+    #content3d {
+        height: calc(100% - 125px);
+    }
+    .visualization-buttons {
+        padding-top: 0.5rem!important;
+        flex-direction: row;
+    }
+    .visualization-button {
+        margin: 0px!important;
+        margin-left: 5px!important;
+        margin-right: 5px!important;
+        width: 80px;
+        height: 80px;
+    }
+    .padded-tile {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+    .wearfits-material-preset {
+        max-width: 50px;
+	    max-height: 50px;
+    }
+    .hide-on-mobile {
+        display: none!important;
+    }
+}
+
+@media (max-width: 350px) {
+    .column-title {
+        font-size: 1.75rem;
+    }
+    .column-sub-title {
+        font-size: 12px;
+    }
+}
